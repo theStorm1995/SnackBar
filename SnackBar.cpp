@@ -27,6 +27,13 @@ namespace theStorm95::SnackBar
     }
 
     //
+    SnackBar::~SnackBar() {
+        this->clear();
+        delete inventory_list_;
+        inventory_list_ = nullptr;
+    }
+
+    //
     std::list<Item>* SnackBar::getSnackBarItems() const{
         return inventory_list_;
     }
@@ -52,7 +59,7 @@ namespace theStorm95::SnackBar
     }
 
     //
-    void SnackBar::changeQuantity(const std::string & name, int new_quantity) {
+    void SnackBar::changeQuantity(const std::string & name, size_t new_quantity) {
         //
         Item item = this->findItem(name);
         snack_bar_price_ -= (item.getPrice() * item.getQuantity());
@@ -94,6 +101,11 @@ namespace theStorm95::SnackBar
                 throw std::range_error("Item doesn't exist.");
             }
         }
+    }
+
+    //
+    void SnackBar::clear() {
+        inventory_list_->clear();
     }
 
     //

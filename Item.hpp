@@ -44,71 +44,8 @@ namespace theStorm95::SnackBar
             std::string name_ = "";
             float price_ = 0.00;
             size_t quantity_ = 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

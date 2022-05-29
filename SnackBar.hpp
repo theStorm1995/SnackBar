@@ -33,6 +33,9 @@ namespace theStorm95::SnackBar
             // CTORS
             SnackBar();
 
+            // DTORS
+            ~SnackBar();
+
             // Accessors 
             std::list<Item>* getSnackBarItems() const;
             float getSnackBarPrice() const;
@@ -43,12 +46,15 @@ namespace theStorm95::SnackBar
             float getPriceItem(const std::string & name) const;
 
             // Change Item info
-            void changeQuantity(const std::string & name, int quantity);
+            void changeQuantity(const std::string & name, size_t quantity);
             void changePrice(const std::string & name, float price);
 
             // Add/Remove Items
             void addItem(std::string name, float price, size_t quantity);
             void removeItem(std::string name);
+
+            // Cleanup
+            void clear();
 
             // Generate Shopping list
             std::list<Item> genShoppingList();
