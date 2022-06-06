@@ -37,6 +37,9 @@ namespace theStorm95::SnackBar
             void adjustQuantity(int new_quantity);
             void adjustPrice(float new_price);
 
+            // Operator Overload
+            Item& operator=(const Item& other);
+
         //
         private:
 

@@ -48,4 +48,13 @@ namespace theStorm95::SnackBar
     void Item::adjustQuantity(int quantity) {
         quantity_ = quantity;
     }
+
+    //
+    Item& Item::operator=(const Item& other) {
+        this->name_ = other.name_;
+        this->price_ = other.price_;
+        this->quantity_ = other.quantity_;
+
+        return *this;
+    }
 }

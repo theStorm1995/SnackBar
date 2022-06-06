@@ -53,11 +53,17 @@ namespace theStorm95::SnackBar
             void addItem(std::string name, float price, size_t quantity);
             void removeItem(std::string name);
 
+            // Generate Shopping list
+            std::list<Item>& genShoppingList();
+
             // Cleanup
             void clear();
 
-            // Generate Shopping list
-            std::list<Item> genShoppingList();
+            // Exists 
+            bool itemExists(const std::string name) const;
+
+            // Empty
+            bool isEmpty() const;
 
         private:
 
@@ -72,6 +78,7 @@ namespace theStorm95::SnackBar
             // Data Variable
 
             std::list<Item> * inventory_list_ = nullptr;
+            std::list<Item> * shopping_list_ = nullptr;
 
             size_t unique_items_ = 0; 
 

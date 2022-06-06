@@ -27,7 +27,8 @@ using std::endl;
 void addItem(SnackBar& snack);
 void removeItem(SnackBar& snack);
 void changeInventory(SnackBar& snack);
-void chagePrice(SnackBar& snack);
+void changePrice(SnackBar& snack);
+void genShoppingList(SnackBar& snack);
 
 
 int main() {
@@ -65,57 +66,107 @@ int main() {
 
         // Add an Item
         else if(input == "1") {
-            addItem(snack);
+            try {
+                addItem(snack);
+            }
+            catch (...) {
+                cout << "Item already exists." << endl;
+            }
         } 
 
         // Remove an Item
         else if(input == "2") {
-            removeItem(snack);
+            try {
+                removeItem(snack);
+            }
+            catch (...) {
+                cout << "Item doesn't exist." << endl;
+            }
         }
 
         // Current Snack Bar Price 
         else if(input == "3") {
-            cout << "\nCurrent Price of Snack Bar Inventory is: " << snack.getSnackBarPrice() << endl;
-            cout << "\n";
+            //
+            if (snack.isEmpty()) {
+                cout << "Snack Bar is empty." << endl;
+            }
+            else {
+                cout << "\nCurrent price of snack bar inventory is: " << snack.getSnackBarPrice() << endl;
+                cout << "\n";
+            }
         }
 
         // Change the Inventory of an Item
         else if (input == "4") {
-            changeInventory(snack);
+            try {
+                changeInventory(snack);
+            }
+            catch (...) {
+                cout << "Item doesn't exist." << endl;
+            }
         }
 
         // Change price of Item
         else if (input == "5") {
-            chagePrice(snack);
+            try {
+                changePrice(snack);
+            }
+            catch (...) {
+                cout << "Item doesn't exist." << endl;
+            }
         }
 
         // Get Inventory of Item
         else if (input == "6") {
-            //
-            std::string name = "";
+            try {
+                //
+                std::string name = "";
 
-            //
-            cout << "\n***Inventory of Item***" << endl;
-            cout << "Enter the name of the Item: ";
-            cin >> name;
-            cout << "Current Inventory is: " << snack.getInventoryItem(name)
-                 << "\n" << endl;
-
+                //
+                cout << "\n***Inventory of Item***" << endl;
+                cout << "Enter the name of the item: ";
+                std::getline(cin, name, '*');
+                cout << "Current inventory is: " << snack.getInventoryItem(name)
+                     << "\n" << endl;
+            }
+            catch (...) {
+                cout << "Item doesn't exist." << endl;
+            }
         }
 
-        //
+        // Get price of Item 
         else if (input == "7") {
+            try {
+                //
+                std::string name = "";
 
-        }
+                //
+                cout << "***Price of an Item***" << endl;
+                cout << "Enter the name of the item: ";
+                std::getline(cin, name, '*');
+                cout << "\n Current price is" << snack.getPriceItem(name) << endl;
+            }
+            catch (...) {
+                cout << "\n";
+                cout << "Item doesn't exist!" << endl;
+            }    
+        }   
         
         // Prints number of Items in SnackBar
         else if (input == "8") {
-            cout << "\nNumber of Items in the Snack Bar is: " << snack.getUniqueItems() << endl;
+            cout << "\nNumber of items in the snack bar is: " << snack.getUniqueItems() << endl;
             cout << "\n";
         }
         
-        // 
+        // Generates a shopping list
         else if (input == "9") {
+            //
+            if (snack.isEmpty()) {
+                cout << "Snack Bar is empty." << endl;
+            }
+            else {
+                genShoppingList(snack);
+            }
 
         }
 
@@ -127,6 +178,7 @@ int main() {
     return 0;
 }
 
+
 //
 void addItem(SnackBar& snack) {
     //
@@ -137,7 +189,7 @@ void addItem(SnackBar& snack) {
     //
     cout << "\nEnter the following about the item to be added: \n" << endl;
     cout << "Name: ";
-    cin >> name;
+    getline(cin, name, '*');
             
     //
     cout << "Price: ";
@@ -152,19 +204,20 @@ void addItem(SnackBar& snack) {
     snack.addItem(name, price, quantity);
 }
 
+
 //
 void removeItem(SnackBar& snack) {
     //
     std::string name = "";
 
     // 
-    cout << "\nEnter the name of the Item to remove: ";
-    cin >> name;
-    cout << "\n";
+    cout << "\nEnter the name of the item to remove: ";
+    std::getline(cin, name, '*');
 
     // 
     snack.removeItem(name);
 }
+
 
 //
 void changeInventory(SnackBar& snack) {
@@ -174,19 +227,23 @@ void changeInventory(SnackBar& snack) {
 
     // 
     cout << "\n***Change Item Inventory***" << endl;
-    cout << "Enter the name of the Item: ";
-    cin >> name;
+    cout << "Enter the name of the item: ";
+    std::getline(cin, name, '*');
 
     //
-    cout << "Enter the new Quantity: ";
+    cout << "Enter the new quantity: ";
     cin >> quantity;
+
+    //
     snack.changeQuantity(name, quantity);
 
     // 
-    cout << "New Inventory for " << name << " is " 
+    cout << "New inventory for " << name << " is " 
          << snack.getInventoryItem(name) << "\n" << endl;
 }
 
+
+//
 void changePrice(SnackBar& snack) {
         // 
     std::string name = "";
@@ -194,15 +251,30 @@ void changePrice(SnackBar& snack) {
 
     // 
     cout << "\n***Change Item Price***" << endl;
-    cout << "Enter the name of the Item: ";
-    cin >> name;
+    cout << "Enter the name of the item: ";
+    std::getline(cin, name, '*');
 
     //
-    cout << "Enter the new Price: ";
+    cout << "Enter the new price: ";
     cin >> price;
     snack.changePrice(name, price);
 
     // 
-    cout << "New Inventory for " << name << " is " 
+    cout << "New inventory for " << name << " is " 
          << snack.getPriceItem(name) << "\n" << endl;
+}
+
+
+//
+void genShoppingList(SnackBar& snack) {
+    //
+    auto shopping_list = snack.genShoppingList();
+
+    //
+    cout << "\nShopping List: " << endl;
+
+    //
+    for (auto itr = shopping_list.begin(); itr != shopping_list.end(); itr++) {
+        cout << "- " << (*itr).getName() << "\n" << endl;
+    }
 }
